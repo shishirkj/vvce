@@ -1,20 +1,32 @@
 import express from 'express';
-import dotenv from 'dotenv';
+import { config } from "dotenv";
 import http from 'http';
 import {Server} from 'socket.io'
 import cors from 'cors'
+import cookieParser from 'cookie-parser';
+import userRoute from './routes/userRoutes.js';
+import connectDB from './data/database.js'; 
 
-dotenv.config();
+config({
+  path: "C:/Users/reach/Desktop/check/server/data/.env",
+});
+
+
+connectDB()
 
 const app = express();
 const server = http.createServer(app);
 
 
 
-//middleares
 
+//middleares
+app.use(cookieParser())
+app.use(express.json())
+//socket cors
 const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST"],} });
 
+//express cors
 app.use(cors({
     origin: ["http://localhost:3000"],
   methods: ["GET", "POST","PUT","DELETE"],
@@ -24,18 +36,25 @@ app.use(cors({
 
 
 
+
 //socket.io
 io.on('connection',(socket)=>{ 
-    console.log("id",socket.id)
+ 
     socket.on('send-changes',(delta)=>{ 
       socket.broadcast.emit("receive-changes",delta)
     })
 })
 
-//express part
-app.get('/', (req, res) => {
-    res.end("hellodsdsd");
+app.use('/api/v1',userRoute);
+
+
+// Handling Uncaught Exception
+process.on("uncaughtException", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log(`Shutting down the server due to Uncaught Exception`);
+  process.exit(1);
 });
+
 
 const PORT = process.env.PORT || 5000;
 
