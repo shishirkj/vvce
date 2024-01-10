@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Signup from './components/authentication/Signup';
 import Dashboard from './components/dashboard/Dashboard';
 import Profile from './components/UserProfie/Profile';
+import Price from './pricing/price';
 
 export default function App() {
   return (
@@ -14,10 +15,10 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/price" element={<Price />} />
         
         </Routes>
        </Router>
-
     
     </div>
   )

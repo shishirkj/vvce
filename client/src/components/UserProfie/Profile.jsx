@@ -6,7 +6,7 @@ export default function Profile() {
     <div>
       <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
         <div className="flex flex-col items-stretch w-[32%] max-md:w-full max-md:ml-0">
-          <div className="self-stretch bg-sky-300 flex grow flex-col justify-center items-stretch w-full max-md:max-w-full">
+          <div className="self-stretch flex grow flex-col justify-center items-stretch w-full max-md:max-w-full">
             <div className="bg-neutral-900 flex flex-col justify-center items-stretch max-md:max-w-full">
               <div className="bg-white flex flex-col justify-center items-stretch max-md:max-w-full">
                 <span className="bg-slate-200 flex flex-col px-10 py-12 max-md:max-w-full max-md:px-5">
