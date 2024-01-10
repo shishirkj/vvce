@@ -8,7 +8,7 @@ import userRoute from './routes/userRoutes.js';
 import connectDB from './data/database.js'; 
 
 config({
-  path: "/Users/hariom/Desktop/vvce/server/data/.env",
+  path: "C:/Users/reach/Desktop/check/server/data/config.env",
 });
 
 
