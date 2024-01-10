@@ -8,7 +8,7 @@ import userRoute from './routes/userRoutes.js';
 import connectDB from './data/database.js'; 
 
 config({
-  path: "C:/Users/reach/Desktop/check/server/data/.env",
+  path: "/Users/hariom/Desktop/vvce/server/data/.env",
 });
 
 
@@ -56,7 +56,7 @@ process.on("uncaughtException", (err) => {
 });
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 
 server.listen(PORT, () => {
