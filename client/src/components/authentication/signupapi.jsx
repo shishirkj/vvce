@@ -9,7 +9,7 @@ export function registerUserApi(form) {
       withCredentials: true,
     };
   
-    return axios.post('http://localhost:5000/api/v1/signup', form, config);
+    return axios.post('http://localhost:4000/api/v1/signup', form, config);
   }
     
   
