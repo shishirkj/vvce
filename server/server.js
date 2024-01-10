@@ -8,7 +8,7 @@ import userRoute from './routes/userRoutes.js';
 import connectDB from './data/database.js'; 
 
 config({
-  path: "C:/Users/reach/Desktop/check/server/data/config.env",
+  path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
 });
 
 
