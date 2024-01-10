@@ -20,6 +20,8 @@ value = e.target.value;
 setForm({...form,[name]:value})
 }
 
+
+
 const registerUser = async(e) => {
   try {
     e.preventDefault();
@@ -42,8 +44,11 @@ const registerUser = async(e) => {
     }
 
     const {data} = await registerUserApi(form)
-    toast.success(`Welcome ${data.user.name}`);
+    if(data?.user?.name){
+      console.log(data.user.name)
+   toast.success(`Welcome ${data.user.name}`);
     history('/dashboard')
+    }
 
   } catch (error) {
     
