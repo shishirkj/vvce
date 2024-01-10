@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Signup from './components/authentication/Signup';
 import Dashboard from './components/dashboard/Dashboard';
 import Profile from './components/UserProfie/Profile';
-import Price from './pricing/price';
+import Price from './components/pricing/price';
 
 export default function App() {
   return (
