@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+
+//register user
 export function registerUserApi(form) {
 
     const config = {

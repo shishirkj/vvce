@@ -5,14 +5,27 @@ import {Server} from 'socket.io'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoutes.js';
+import profileRoute from './routes/profileRoutes.js';
 import connectDB from './data/database.js'; 
+import cloudinary from 'cloudinary';
+import fileUpload from 'express-fileupload';
 
 config({
   path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
 });
 
 
+
+
+
 connectDB()
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.API_KEY, 
+  api_secret: process.env.API_SECRET 
+});
+
 
 const app = express();
 const server = http.createServer(app);
@@ -23,6 +36,7 @@ const server = http.createServer(app);
 //middleares
 app.use(cookieParser())
 app.use(express.json())
+app.use(fileUpload());
 //socket cors
 const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST"],} });
 
@@ -46,6 +60,8 @@ io.on('connection',(socket)=>{
 })
 
 app.use('/api/v1',userRoute);
+app.use('/api/v1',profileRoute);
+
 
 
 // Handling Uncaught Exception

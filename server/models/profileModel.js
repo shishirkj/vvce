@@ -2,6 +2,16 @@ import mongoose from "mongoose"
 import validator from "validator";
 
 const profileSchema = mongoose.Schema({
+  image: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
     bio: {
       type: String,
     },
@@ -10,12 +20,12 @@ const profileSchema = mongoose.Schema({
         type: String,
     },
     paperPublished: Number,
-    location: {
-      type: String,
-    },
-    expertise: {
-      type: String,
-    },
+    location:String,
+    expertise: 
+      {
+        type: String,
+      },
+    
     about: {
       type: String,
     },

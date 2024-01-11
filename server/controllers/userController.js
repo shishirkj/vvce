@@ -4,9 +4,10 @@ import ErrorHandler from "../middlewares/error.js";
 import bcrypt from 'bcrypt'
 
 
+
+
 //register user
 export const registerUser = async ( req, res, next) => {
-
     try{
        console.log(req.body);
       const { name, email, password } = req.body;
@@ -28,3 +29,5 @@ export const registerUser = async ( req, res, next) => {
    
   };
   
+
+ 
