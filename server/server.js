@@ -11,7 +11,8 @@ import cloudinary from 'cloudinary';
 import fileUpload from 'express-fileupload';
 
 config({
-  path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
+  // path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
+  path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
 });
 
 
