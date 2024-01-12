@@ -12,8 +12,8 @@ import fileUpload from 'express-fileupload';
 import ErrorHandler from './middlewares/error.js';
 
 config({
-  // path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
-  path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
+  path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
+  // path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
 });
 
 

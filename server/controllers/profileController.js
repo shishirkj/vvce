@@ -2,7 +2,7 @@ import ErrorHandler from "../middlewares/error.js";
 import Profile from "../models/profileModel.js";
 import cloudinary from "cloudinary";
 import dataUri from "../utils/dataUri.js";
-import sendProfileCookie from "../utils/sendProfileCookie.js";
+
 
 //profile creation
 export const updateProfile = async (req, res, next) => {
