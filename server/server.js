@@ -10,6 +10,7 @@ import connectDB from './data/database.js';
 import cloudinary from 'cloudinary';
 import fileUpload from 'express-fileupload';
 import ErrorHandler from './middlewares/error.js';
+import Document from './models/documentModel.js';
 
 config({
   path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
@@ -52,14 +53,33 @@ app.use(cors({
 
 
 
-
+const defaultValue=""
 //socket.io
 io.on('connection',(socket)=>{ 
- 
+  socket.on("get-document",async documentId=>{ 
+    const document=await findOrCreateDocument(documentId);
+  
+    socket.join(documentId)
+    
+  socket.emit('load-document',document.data)
     socket.on('send-changes',(delta)=>{ 
-      socket.broadcast.emit("receive-changes",delta)
+      socket.broadcast.to(documentId).emit("receive-changes",delta)
     })
+    socket.on("save-document", async data => {
+      await Document.findByIdAndUpdate(documentId, { data })
+    })
+  })
+  
 })
+
+async function findOrCreateDocument(id) {
+  if (id == null) return
+
+  const document = await Document.findById(id)
+  
+  if (document) return document
+  return await Document.create({ _id: id, data: defaultValue })
+}
 
 app.use('/api/v1',userRoute);
 app.use('/api/v1',profileRoute);

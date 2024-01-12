@@ -2,6 +2,9 @@ import React, { useCallback,useEffect,useState} from 'react'
 import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
+import { useParams } from 'react-router-dom'
+
+const SAVE_INTERVAL = 2000
 const TOOLBAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
   [{ font: [] }],
@@ -16,6 +19,7 @@ const TOOLBAR_OPTIONS = [
 
 export default function TextEditor() {
 
+  const {id:documentId} = useParams()
   const [socket,setSocket] = useState();
   const [quill,setQuill] = useState();
 
@@ -27,6 +31,34 @@ export default function TextEditor() {
     s.disconnect()
    }
   },[])
+
+
+  useEffect(()=>{ 
+    if(socket==null||quill==null) return
+    
+    //if saved
+    socket.once("load-document",document=>{ 
+      console.log('load-document event received:', documentId);
+      
+      quill.setContents(document)
+      quill.enable()
+    })
+    socket.emit('get-document',documentId)
+    }
+   ,[socket,quill,documentId])
+ 
+
+   useEffect(() => {
+    if (socket == null || quill == null) return
+
+    const interval = setInterval(() => {
+      socket.emit("save-document", quill.getContents())
+    }, SAVE_INTERVAL)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [socket, quill])
 
 
   useEffect(() => {
@@ -61,9 +93,12 @@ export default function TextEditor() {
     wrapper.innerHTML=""
     const editor = document.createElement("div")
     wrapper.append(editor)
-    const q = new Quill(editor,{theme:"snow", modules: { toolbar: TOOLBAR_OPTIONS }});
+    const q = new Quill(editor,{theme:"snow", modules: { toolbar: TOOLBAR_OPTIONS },});
+    q.disable()
+    q.setText('Teri maa ka....')
     setQuill(q)
   },[])
+  
   return (
     <div className='container' ref = {wrapperRef}></div>
   )
