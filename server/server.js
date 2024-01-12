@@ -9,9 +9,10 @@ import profileRoute from './routes/profileRoutes.js';
 import connectDB from './data/database.js'; 
 import cloudinary from 'cloudinary';
 import fileUpload from 'express-fileupload';
+import ErrorHandler from './middlewares/error.js';
 
 config({
-  path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
+  path:"C:/Users/reach/Desktop/check/server/data/secret/.env" ,
 });
 
 
@@ -63,6 +64,8 @@ app.use('/api/v1',userRoute);
 app.use('/api/v1',profileRoute);
 
 
+//error handler
+app.use(ErrorHandler)
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {

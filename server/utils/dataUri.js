@@ -19,9 +19,9 @@ const dataUri=(file)=>{
     
     const parser = new dataUriParser();
      
-    const extname  = path.extname(file.avatar.name).toString();
+    const extname  = path.extname(file.image.name).toString();
     
-    return parser.format(extname,file.avatar.data)
+    return parser.format(extname,file.image.data)
 
 }
 

@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { updateProfile } from './ProfileApi';
 import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Loading from '../utils/Loading';
 
 
 export default function Profile() {
   const [edit,setEdit] = useState(false);
-
+  const [data,setData] = useState(null)
+  const [loading,setLoading] = useState(false)
 
   //edit boolean function
   const change = (e)=>{ 
@@ -52,13 +53,15 @@ const handleInputs=(e)=>{
 
   //register user
 const changeProfile = async(e) => {
-  e.preventDefault();
+  setLoading(true)
+  try {
+    e.preventDefault();
 
     const {bio,age,occupation,paperPublished,expertise,gmail,linkedin,location,about,project,image}=form;  
     
    
   
-   console.log("form",form)
+  
     const myForm = new FormData();
 
     myForm.set("bio", bio);
@@ -75,15 +78,27 @@ const changeProfile = async(e) => {
 
   
     //to console myForm
-    for (var key of myForm.entries()) {
-      console.log(key[0] + ', ' + key[1])
-    }
-    return ;
+    // for (var key of myForm.entries()) {
+    //   console.log(key[0] + ', ' + key[1])
+    // }
+
+    const response = await updateProfile(myForm)
+   const result = await  response.data.profile;
+  setData(result)
+  setEdit((prevForm)=>!prevForm)
+  } 
+  catch (error) {
+    console.error('Error updating profile:', error);
+  }
+  finally{ 
+    setLoading(false);
+  }
+ 
     
 };
 
     
-  
+  console.log(data);
   return (
     <div>
     <div>
@@ -264,25 +279,38 @@ const changeProfile = async(e) => {
         </div>
       </div>
       </form>:
+
+
+
+
+
+
       <>   
-      <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
+     
+     {setLoading===true?<Loading/>:
+     <>
+     (
+     <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
         <div className="flex flex-col items-stretch w-[32%] max-md:w-full max-md:ml-0">
           <div className="self-stretch flex grow flex-col justify-center items-stretch w-full max-md:max-w-full">
             <div className="bg-neutral-900 flex flex-col justify-center items-stretch max-md:max-w-full">
               <div className="bg-white flex flex-col justify-center items-stretch max-md:max-w-full">
                 <span className="bg-slate-200 flex flex-col px-10 py-12 max-md:max-w-full max-md:px-5">
-               <img
-                    loading="lazy"
-                    alt=""
-                    src=''
-                    className="aspect-[1.02] object-contain object-center w-[370px] shadow overflow-hidden self-center max-w-full mt-2.5"
-                  />
+                <img
+                  loading="lazy"
+                  alt=""
+                  src='/profile_pic.png'
+                  className="aspect-[1.02] object-cover object-center w-[370px] h-[370px] rounded-full shadow overflow-hidden self-center max-w-full mt-2.5"
+/>
+
   
-               <div className="justify-center text-neutral-400 text-center text-lg font-bold leading-7 self-stretch mt-16 max-md:max-w-full max-md:mt-10">
-                    “Visit new places, meet new cultures, and exchange life
-                    experiences are my favorite thing ever, also because I can
-                    express my thinking along the journey”
-                  </div>
+             { data?.bio ?
+           (  <div className="justify-center text-neutral-400 text-center text-lg font-bold leading-7 self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+            {data.bio}
+              </div>):
+            ( <div className="justify-center text-neutral-400 text-center text-lg font-bold leading-7 self-stretch mt-16 max-md:max-w-full max-md:mt-10">
+             Enter bio
+                  </div>)}
                   <span className="justify-between items-stretch self-center flex w-[400px] max-w-full gap-5 mt-16 max-md:mt-10">
                     <span className="items-center flex justify-between gap-2.5">
                       <img
@@ -295,9 +323,13 @@ const changeProfile = async(e) => {
                         Age
                       </div>
                     </span>
-                  <div className="text-neutral-900 text-center text-2xl font-bold leading-8">
-                      26
-                    </div>
+                 { data?.age?
+                ( <div className="text-neutral-900 text-center text-2xl font-bold leading-8">
+                 {data?.age}
+               </div>):
+                ( <div className="text-neutral-900 text-center text-2xl font-bold leading-8">
+                      Enter age
+                    </div>)}
                   </span>
                   <span className="justify-between items-stretch self-center flex w-[400px] max-w-full gap-5 mt-6">
                     <span className="items-center flex justify-between gap-2.5">
@@ -312,10 +344,15 @@ const changeProfile = async(e) => {
                       </div>
                       
                     </span>
-                 <input type='text' value={form.occupation} name='occupation' onChange={handleInputs} placeholder='Enter Occupation'/><div className="text-neutral-900 text-center text-2xl font-bold leading-8">
+               {data?.occupation?<div className="text-neutral-900 text-center text-2xl font-bold leading-8">
                       {" "}
-                      Student
-                    </div>
+                      {data.occupation}
+                    </div>:
+                    <div className="text-neutral-900 text-center text-2xl font-bold leading-8">
+                    {" "}
+                    Enter Occupation
+                  </div>
+                    }
 
                   </span>
                   <span className="justify-between items-stretch self-center flex w-[400px] max-w-full gap-5 mt-6">
@@ -330,10 +367,14 @@ const changeProfile = async(e) => {
                         No Of Paper Published
                       </div>
                     </span>
-<div className="text-neutral-900 text-center text-2xl font-bold leading-8">
-                      03
+      {data?.paperPublished?
+        <div className="text-neutral-900 text-center text-2xl font-bold leading-8">
+                     {data?.paperPublished}
+                    </div>:
+      <div className="text-neutral-900 text-center text-2xl font-bold leading-8">
+                      Enter no.of Paper published
                     </div>
-
+}
                   </span>
                   <span className="justify-between items-stretch self-center flex w-[400px] max-w-full gap-5 mt-6">
                     <span className="items-center flex justify-between gap-2.5">
@@ -347,10 +388,23 @@ const changeProfile = async(e) => {
                         Location
                       </div>
                     </span>
-                <div className="text-neutral-900 text-center text-2xl font-bold leading-8 flex-1">
-                      London, UK
-                    </div>
+               {data?.location?
+               <div className="text-neutral-900 text-center text-2xl font-bold leading-8 flex-1">
+               {data?.location}
+              </div>:
+               <div className="text-neutral-900 text-center text-2xl font-bold leading-8 flex-1">
+                     Enter location
+                    </div>}
                   </span>
+
+{data?.expertise?
+  <div className="items-stretch self-center flex w-[400px] max-w-full gap-5 mt-12 max-md:mt-10">
+                    <span className="text-neutral-900 text-center text-lg font-semibold leading-6 items-stretch rounded bg-zinc-200 grow justify-center px-5 py-3">
+                    {data?.expertise}
+                    </span>
+                    
+                  </div>:
+
 <div className="items-stretch self-center flex w-[400px] max-w-full gap-5 mt-12 max-md:mt-10">
                     <span className="text-neutral-900 text-center text-lg font-semibold leading-6 items-stretch rounded bg-zinc-200 grow justify-center px-5 py-3">
                       PASSIONATE
@@ -358,7 +412,7 @@ const changeProfile = async(e) => {
                     <span className="text-neutral-900 text-center text-lg font-semibold leading-6 items-stretch rounded bg-zinc-200 grow justify-center px-5 py-3">
                       HONEST
                     </span>
-                  </div>
+                  </div>}
                 
                 </span>
               </div>
@@ -377,6 +431,11 @@ const changeProfile = async(e) => {
             <div className="text-neutral-900 text-center text-2xl font-bold leading-8 self-stretch mr-4 mt-8 max-md:max-w-full max-md:mr-2.5">
               About
             </div>
+
+{data?.about?
+  <div className="text-stone-500 text-2xl leading-8 self-stretch w-full mr-4 mt-6 max-md:max-w-full max-md:mr-2.5">
+         {data.about}
+            </div>:
 <div className="text-stone-500 text-2xl leading-8 self-stretch w-full mr-4 mt-6 max-md:max-w-full max-md:mr-2.5">
               Martha is a compassionate and thoughtful young woman with a deep
               love for acting and a keen interest in political activism. She
@@ -388,11 +447,18 @@ const changeProfile = async(e) => {
               stay connected with friends and stay informed about important
               political and environmental developments. Martha leads a healthy
               lifestyle and does not have any detrimental habits.
-            </div>
+            </div>}
             <div className="text-neutral-900 text-center text-2xl font-bold leading-8 mt-20 self-start max-md:max-w-full max-md:mt-10">
               Projects
             </div>
-        <div className="text-stone-500 text-2xl leading-8 w-[445px] max-w-full mt-6 self-start">
+       { data?.project?
+       <div className="text-stone-500 text-2xl leading-8 w-[445px] max-w-full mt-6 self-start">
+      {data?.project}
+       <br />
+       Sharing her thoughts and perspectives on literature with friends,
+       fostering meaningful conversations.
+     </div>:
+       <div className="text-stone-500 text-2xl leading-8 w-[445px] max-w-full mt-6 self-start">
               Discovering captivating books, articles, and authors to expand her
               reading horizons.
               <br />
@@ -405,7 +471,7 @@ const changeProfile = async(e) => {
               Sharing her thoughts and perspectives on literature with friends,
               fostering meaningful conversations.
             </div>
-
+}
             <div className="self-stretch mr-4 mt-20 mb-6 max-md:max-w-full max-md:mr-2.5 max-md:mt-10">
               <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                 <div className="flex flex-col items-stretch w-[47%] max-md:w-full max-md:ml-0">
@@ -483,10 +549,11 @@ const changeProfile = async(e) => {
             </div>
           </span>
         </div>
-      </div>
+      </div>)
+     </>
+     }
+    
 
-      
-      
       </> 
       }
     </div>
