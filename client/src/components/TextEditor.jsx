@@ -88,6 +88,12 @@ export default function TextEditor() {
       }
     
   },[socket,quill])
+
+
+  const logDocument = ()=>{   
+    socket.emit("log-document",quill.getContents())
+  }
+
   const wrapperRef = useCallback(wrapper=>{ 
     if(wrapper==null)return 
     wrapper.innerHTML=""
@@ -100,7 +106,12 @@ export default function TextEditor() {
   },[])
   
   return (
+    <>
     <div className='container' ref = {wrapperRef}></div>
+    <div>
+      <button onClick={logDocument}>kjjfhg</button>
+    </div>
+    </>
   )
 }
 

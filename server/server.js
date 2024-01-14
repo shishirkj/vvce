@@ -14,8 +14,8 @@ import Document from './models/documentModel.js';
 import Logbook from './models/logbookModel.js';
 
 config({
-  // path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
-  path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
+  path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
+  // path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
 });
 
 
@@ -70,7 +70,11 @@ io.on('connection',(socket)=>{
       await Document.findByIdAndUpdate(documentId, { data })
     })
     // console.log("fdsbfj",documentId,document.data)
-    await saveLog(documentId,document.data); 
+    socket.on("log-document",async data=>{
+      console.log("data",data)
+      console.log("documentId",documentId);
+      await saveLog(documentId,document.data); 
+    })
 
   })
   
@@ -106,7 +110,7 @@ process.on("uncaughtException", (err) => {
 //logbook
 async function saveLog(documentId,data) {
   // Create a new log entry using Logbook model
-  console.log("sbdfhbdsb", documentId,data)
+ 
   const newLog = new Logbook({
     data: data,  // Assuming you want to log the existing data
     document_id: documentId,
