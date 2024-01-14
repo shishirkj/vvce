@@ -55,9 +55,7 @@ app.use(cors({
 
 
 const defaultValue=""
-const globalData ={
-  
-}
+
 //socket.io
 io.on('connection',(socket)=>{ 
   socket.on("get-document",async documentId=>{ 
@@ -71,14 +69,13 @@ io.on('connection',(socket)=>{
     socket.on("save-document", async data => {
       await Document.findByIdAndUpdate(documentId, { data })
     })
-
-    await saveLog(documentId,data); 
+    // console.log("fdsbfj",documentId,document.data)
+    await saveLog(documentId,document.data); 
 
   })
   
 })
 
-console.log("hdsjfbjds",globalData)
 
 async function findOrCreateDocument(id) {
   if (id == null) return
@@ -109,6 +106,7 @@ process.on("uncaughtException", (err) => {
 //logbook
 async function saveLog(documentId,data) {
   // Create a new log entry using Logbook model
+  console.log("sbdfhbdsb", documentId,data)
   const newLog = new Logbook({
     data: data,  // Assuming you want to log the existing data
     document_id: documentId,
