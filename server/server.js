@@ -11,10 +11,11 @@ import cloudinary from 'cloudinary';
 import fileUpload from 'express-fileupload';
 import ErrorHandler from './middlewares/error.js';
 import Document from './models/documentModel.js';
+import Logbook from './models/logbookModel.js';
 
 config({
-  path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
-  // path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
+  // path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
+  path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
 });
 
 
@@ -54,13 +55,15 @@ app.use(cors({
 
 
 const defaultValue=""
+const globalData ={
+  
+}
 //socket.io
 io.on('connection',(socket)=>{ 
   socket.on("get-document",async documentId=>{ 
     const document=await findOrCreateDocument(documentId);
   
     socket.join(documentId)
-    
   socket.emit('load-document',document.data)
     socket.on('send-changes',(delta)=>{ 
       socket.broadcast.to(documentId).emit("receive-changes",delta)
@@ -68,9 +71,14 @@ io.on('connection',(socket)=>{
     socket.on("save-document", async data => {
       await Document.findByIdAndUpdate(documentId, { data })
     })
+
+    await saveLog(documentId,data); 
+
   })
   
 })
+
+console.log("hdsjfbjds",globalData)
 
 async function findOrCreateDocument(id) {
   if (id == null) return
@@ -94,6 +102,26 @@ process.on("uncaughtException", (err) => {
   console.log(`Shutting down the server due to Uncaught Exception`);
   process.exit(1);
 });
+
+
+
+
+//logbook
+async function saveLog(documentId,data) {
+  // Create a new log entry using Logbook model
+  const newLog = new Logbook({
+    data: data,  // Assuming you want to log the existing data
+    document_id: documentId,
+  });
+
+  newLog.save()
+    .then(savedLog => {
+        console.log('Log entry saved:', savedLog);
+    })
+    .catch(error => {
+        console.error('Error saving log entry:', error);
+    });
+}
 
 
 const PORT = process.env.PORT || 5000;
