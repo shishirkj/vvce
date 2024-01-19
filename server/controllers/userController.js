@@ -9,7 +9,7 @@ import bcrypt from 'bcrypt'
 //register user
 export const registerUser = async ( req, res, next) => {
     try{
-       console.log(req.body);
+       
       const { name, email, password } = req.body;
       console.log("name",name,"email",email,"password",password)
       let user = await User.findOne({ email });

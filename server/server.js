@@ -6,15 +6,17 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import userRoute from './routes/userRoutes.js';
 import profileRoute from './routes/profileRoutes.js';
+import searchRoute from './routes/searchRoutes.js';
 import connectDB from './data/database.js'; 
 import cloudinary from 'cloudinary';
 import fileUpload from 'express-fileupload';
 import ErrorHandler from './middlewares/error.js';
 import Document from './models/documentModel.js';
 import Logbook from './models/logbookModel.js';
+import { config_path } from './data/secret/configpath.js';
 
 config({
-  path: "C:/Users/reach/Desktop/check/server/data/secret/.env",
+  path:config_path,
   // path: "/Users/hariom/Desktop/vvce/server/data/secret/.env",
 });
 
@@ -92,6 +94,8 @@ async function findOrCreateDocument(id) {
 
 app.use('/api/v1',userRoute);
 app.use('/api/v1',profileRoute);
+app.use('/api/v1',searchRoute);
+
 
 
 //error handler

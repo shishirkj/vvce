@@ -5,7 +5,7 @@ const sendCookie = (user,res,statusCode,msg)=>{
 
 
 const token = jwt.sign({id:user._id},process.env.JWT);
-console.log("token",token)
+
     res.status(statusCode).cookie("token",token,{ 
         httpOnly:true,
         maxAge:7*60*1000*24,
