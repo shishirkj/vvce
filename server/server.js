@@ -43,6 +43,7 @@ const server = http.createServer(app);
 app.use(cookieParser())
 app.use(express.json())
 app.use(fileUpload());
+app.use(express.urlencoded({ extended: true }));
 //socket cors
 const io = new Server(server, { cors: { origin: "*", methods: ["GET", "POST"],} });
 
@@ -117,12 +118,12 @@ async function saveLog(documentId,data) {
   // Create a new log entry using Logbook model
   console.log("document id ",documentId)
  console.log("document data",data)
-  const newLog = new Logbook({
+  const newLog =await new Logbook({
     data: data,  // Assuming you want to log the existing data
     document_id: documentId,
   });
 
-  newLog.save()
+  await newLog.save()
     .then(savedLog => {
         console.log('Log entry saved:', savedLog);
     })

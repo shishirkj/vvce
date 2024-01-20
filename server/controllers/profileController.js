@@ -7,14 +7,6 @@ import dataUri from "../utils/dataUri.js";
 //profile creation
 export const updateProfile = async (req, res, next) => {
   try {
-    const file = req.files;
-console.log("file is present",file)
-    const fileUri = dataUri(file);
-    const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
-      folder: "vvce",
-      width: 150,
-      crop: "scale",
-    });
 
     const {
       bio,
@@ -28,8 +20,23 @@ console.log("file is present",file)
       project,
       linkedin,
     } = req.body;
+    
+    
+    
+    const file = req.files;
 
-   
+    const fileUri = dataUri(file);
+    const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
+      folder: "vvce",
+      width: 150,
+      crop: "scale",
+    });
+
+
+    let userId= req.user._id;
+    console.log("USERID",userId);
+
+
     let parsedPaperPublished = parseInt(paperPublished);
     let parsedAge = parseInt(age);
 
@@ -44,6 +51,7 @@ console.log("file is present",file)
       gamil,
       project,
       linkedin,
+      user:userId,
       image: {
         public_id: myCloud.public_id,
         url: myCloud.secure_url,
@@ -67,8 +75,17 @@ console.log("file is present",file)
 
 export const getProfile = async(req,res,next)=>{ 
   try {
+  
+
+    const user = await Profile.find({user:req.user._id})
+    if (!user) {
+      return next(new ErrorHandler("User not found", 500));
+    }
+    return res.status(200).json({ 
+      user
+    })
     
   } catch (error) {
-    
+    next(error)
   }
 }

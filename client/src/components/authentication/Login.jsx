@@ -3,7 +3,7 @@ import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { loginUserApi } from './signupapi';
-
+import { Link } from 'react-router-dom';
 
 
 export default function Login() {
@@ -134,7 +134,7 @@ const loginUser = async(e) => {
             </button>
             <div className="text-slate-600 text-base leading-9 mt-9 mb-10 self-end max-md:max-w-full max-md:mb-10">
               No account?{" "}
-              <span className="text-slate-600">Signup</span>
+              <Link  to={'/signup'} className="text-slate-600">Sign up</Link>
             </div>
             </form>
           </span>

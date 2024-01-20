@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import { updateProfile } from './ProfileApi';
+import { updateProfile,getProfile } from './ProfileApi';
 import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loading from '../utils/Loading';
-
+import { useEffect } from 'react';
 
 export default function Profile() {
   const [edit,setEdit] = useState(false);
@@ -97,7 +97,17 @@ const changeProfile = async(e) => {
     
 };
 
-    
+async function getProfileData(){ 
+
+  const response = await getProfile();
+  console.log(response);
+}
+
+
+useEffect(()=>{ 
+  getProfileData();
+
+},[])
   console.log(data);
   return (
     <div>

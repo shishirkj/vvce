@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ToastContainer,toast } from "react-toastify";
 import { registerUserApi } from './signupapi';
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
   
@@ -141,7 +141,7 @@ const registerUser = async(e) => {
             </button>
             <div className="text-slate-600 text-base leading-9 mt-9 mb-10 self-end max-md:max-w-full max-md:mb-10">
               Allready have an account?{" "}
-              <span className="text-slate-600">Log in</span>
+              <Link  to={'/login'} className="text-slate-600">Log in</Link>
             </div>
             </form>
           </span>

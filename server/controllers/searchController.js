@@ -1,5 +1,6 @@
 import {  getJson } from "serpapi";
 import ErrorHandler from "../middlewares/error.js";
+import Logbook from "../models/logbookModel.js";
 
 export const googleSearch = async(req,res,next)=>{ 
 
@@ -33,3 +34,28 @@ res.status(200).json({
 
 
 
+export const versionControl = async(req,res,next)=>{
+
+try {
+
+    console.log(req.params)
+    const documentId = req.params.documentId;
+
+    if(!documentId)
+    {
+        return next(new ErrorHandler("Data not found", 404));
+    } 
+
+const data = await Logbook.find({document_id:documentId})
+
+
+res.status(200).json({
+    mssg:'success',
+    data
+})
+
+} catch (error) {
+    next(error)
+}
+
+}

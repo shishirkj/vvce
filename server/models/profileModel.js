@@ -38,6 +38,7 @@ const profileSchema = mongoose.Schema({
     },
     linkedin:{
     type: String,
+    
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

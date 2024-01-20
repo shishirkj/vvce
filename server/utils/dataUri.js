@@ -16,12 +16,14 @@ import path from 'path'
 // }
 
 const dataUri=(file)=>{
+    console.log(file.file.name)
+    
     
     const parser = new dataUriParser();
      
-    const extname  = path.extname(file.image.name).toString();
+    const extname  = path.extname(file.file.name).toString();
     
-    return parser.format(extname,file.image.data)
+    return parser.format(extname,file.file.data)
 
 }
 
