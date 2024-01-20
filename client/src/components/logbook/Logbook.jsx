@@ -1,18 +1,20 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect,useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { getLogbookDetails } from './logbookApi'
 
 export default function Logbook() {
 
     const {documentId} =  useParams() 
+    const [data,setData] = useState([])
 console.log(documentId)
    
     useEffect(()=>{ 
         async function showLogDetails(){ 
             const response = await getLogbookDetails(documentId)
-            console.log(response)
-            return;
+            const info = await response.data.data
+            console.log(info)
+           setData(info)
         }
    showLogDetails();
     },[documentId])
@@ -20,6 +22,20 @@ console.log(documentId)
 
 
   return (
-    <div>Logbook</div>
+    <div>
+ {data?data.map((info,index)=>( 
+<div key = {index}>
+<div style={{minWidth:'100%'}} className="bg-white p-4 rounded-md shadow-md mx-auto max-w-2xl">
+{/* Card content goes here */}
+<h2 className="text-xl font-bold mb-2">INFO</h2>
+<p className="mb-3">{info.timestamp}</p>
+<p className="mb-3">{info.document_id}</p>
+
+<p>{info.data.ops[0].insert}</p>
+<hr className=" dark:bg-gray-900"></hr>
+</div>
+</div>
+           )):'Loading....'}
+    </div>
   )
 }
