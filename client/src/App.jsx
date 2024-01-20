@@ -10,6 +10,7 @@ import Login from './components/authentication/Login';
 import LandingPage from './components/landing/LandingPage';
 import QuillEditor from './components/segmentation/QuillEditor';
 import SearchOp from './components/searchquery/SearchOp';
+import Logbook from './components/logbook/Logbook';
 
 
 
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/segment" element={<QuillEditor />} />
         <Route path="/search" element={<SearchOp />} />
+        <Route path="/logbook/:documentId" element={<Logbook/>} />
         
         
         </Routes>

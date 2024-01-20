@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getSearchQuery(input) {
+export function getLogbookDetails(documentId) {
 
     const config = {
       headers: {
@@ -9,7 +9,7 @@ export function getSearchQuery(input) {
       withCredentials: true,
     };
   
-    return axios.get(`http://localhost:4000/api/v1/search?q=${input}`, config);
+    return axios.get(`http://localhost:4000/api/v1/logbook/${documentId}`, config);
   }
     
   

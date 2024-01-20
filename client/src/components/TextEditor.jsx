@@ -3,7 +3,7 @@ import Quill from "quill"
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import { useParams } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 const SAVE_INTERVAL = 2000
 const TOOLBAR_OPTIONS = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -110,8 +110,9 @@ export default function TextEditor() {
     <div className='container' style={{minWidth:'100%'}} ref = {wrapperRef}></div>
     <div>
     <button className="bg-slate-600 rounded-lg px-5 py-2 " onClick={logDocument}>
-  Log Button
+  Store Log Button
 </button>
+<Link to={`/logbook/${documentId}`}  className="bg-slate-600 rounded-lg px-5 py-2 ml-3 ">Display Log Book</Link>
     </div>
     </>
   )
