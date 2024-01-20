@@ -74,8 +74,7 @@ io.on('connection',(socket)=>{
     // console.log("fdsbfj",documentId,document.data)
     socket.on("log-document",async data=>{
       console.log("data",data)
-      console.log("documentId",documentId);
-      await saveLog(documentId,document.data); 
+      await saveLog(documentId,data); 
     })
 
   })
@@ -116,7 +115,8 @@ process.on("uncaughtException", (err) => {
 //logbook
 async function saveLog(documentId,data) {
   // Create a new log entry using Logbook model
- 
+  console.log("document id ",documentId)
+ console.log("document data",data)
   const newLog = new Logbook({
     data: data,  // Assuming you want to log the existing data
     document_id: documentId,

@@ -101,7 +101,7 @@ export default function TextEditor() {
     wrapper.append(editor)
     const q = new Quill(editor,{theme:"snow", modules: { toolbar: TOOLBAR_OPTIONS },});
     q.disable()
-    q.setText('Teri maa ka....')
+    q.setText('Loading....')
     setQuill(q)
   },[])
   
