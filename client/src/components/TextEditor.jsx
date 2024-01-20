@@ -107,9 +107,11 @@ export default function TextEditor() {
   
   return (
     <>
-    <div className='container' ref = {wrapperRef}></div>
+    <div className='container' style={{minWidth:'100%'}} ref = {wrapperRef}></div>
     <div>
-      <button onClick={logDocument}>kjjfhg</button>
+    <button className="bg-slate-600 rounded-lg px-5 py-2 " onClick={logDocument}>
+  Log Button
+</button>
     </div>
     </>
   )

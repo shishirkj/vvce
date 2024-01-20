@@ -47,7 +47,7 @@ const registerUser = async(e) => {
     if(data?.user?.name){
       console.log(data.user.name)
    toast.success(`Welcome ${data.user.name}`);
-    history('/dashboard')
+    history('/text')
     }
 
   } catch (error) {
@@ -69,15 +69,15 @@ const registerUser = async(e) => {
       <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
         <div className="flex flex-col items-stretch w-[31%] max-md:w-full max-md:ml-0">
           <span className="flex flex-col mt-5 items-start max-md:mt-10">
-            <img alt = "img"
-              loading="lazy"
-              
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/be69b2c38003c2b80727ff0083a091d67a080a59b668ad123f9928dd54cd25b8?"
-              className="aspect-square object-contain object-center w-[37px] fill-white overflow-hidden max-w-full"
-            />
-            <div className="text-white text-2xl leading-9 tracking-widest self-stretch mt-14 max-md:mt-10">
-              Unlock the power of collective wisdom. Join us and write the
-              future of research collaboratively.
+            <div>
+              <img alt='' src='/favicon.png' />
+              <h1 className="text-4xl text-white">Research Sync</h1>
+            </div>  
+            <div className="text-white text-2xl leading-20 tracking-widest self-stretch mt-14 max-md:mt-10">
+            ResearchCollab: Unifying Collaboration Efforts
+            </div>
+            <div className="text-white text-xl leading-9 tracking-widest self-stretch mt-12 max-md:mt-10">
+            Manage your research and collaborate through an all-in-one platform.
             </div>
           </span>
         </div>
@@ -167,4 +167,11 @@ theme="colored"
     </div>
   )
 }
+
+
+
+
+
+
+
 

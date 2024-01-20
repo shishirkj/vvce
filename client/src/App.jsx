@@ -8,6 +8,10 @@ import Price from './components/pricing/price';
 import {v4 as uuidV4} from 'uuid'
 import Login from './components/authentication/Login';
 import LandingPage from './components/landing/LandingPage';
+import QuillEditor from './components/segmentation/QuillEditor';
+import SearchOp from './components/searchquery/SearchOp';
+
+
 
 export default function App() {
   return (
@@ -15,9 +19,9 @@ export default function App() {
        <Router>
         <Routes>
           <Route path="/" element={<LandingPage/>}></Route>
-        <Route path="/text" element={<Navigate to={`text/documents/${uuidV4()}`}/>}></Route>
+        <Route path="/text" element={<Navigate to={`/text/documents/${uuidV4()}`}/>}></Route>
         
-        <Route path='text/documents/:id' element={ <TextEditor/>}/>
+        <Route path='/text/documents/:id' element={ <TextEditor/>}/>
          
         
        
@@ -26,6 +30,8 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/price" element={<Price />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/segment" element={<QuillEditor />} />
+        <Route path="/search" element={<SearchOp />} />
         
         
         </Routes>

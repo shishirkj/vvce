@@ -310,7 +310,7 @@ useEffect(()=>{
                 <img
                   loading="lazy"
                   alt=""
-                  src='/profile_pic.png'
+                  src='/bad.webp'
                   className="aspect-[1.02] object-cover object-center w-[370px] h-[370px] rounded-full shadow overflow-hidden self-center max-w-full mt-2.5"
 />
 

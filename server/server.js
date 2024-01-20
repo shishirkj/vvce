@@ -14,6 +14,7 @@ import ErrorHandler from './middlewares/error.js';
 import Document from './models/documentModel.js';
 import Logbook from './models/logbookModel.js';
 import { config_path } from './data/secret/configpath.js';
+import bcrypt from 'bcrypt'
 
 config({
   path:config_path,
@@ -89,6 +90,8 @@ async function findOrCreateDocument(id) {
   const document = await Document.findById(id)
   
   if (document) return document
+ 
+
   return await Document.create({ _id: id, data: defaultValue })
 }
 
