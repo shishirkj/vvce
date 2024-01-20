@@ -100,7 +100,8 @@ const changeProfile = async(e) => {
 async function getProfileData(){ 
 
   const response = await getProfile();
-  console.log(response);
+  const userData = response.data.user[0]
+  return userData
 }
 
 

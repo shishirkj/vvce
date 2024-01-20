@@ -7,16 +7,17 @@ import Profile from './components/UserProfie/Profile';
 import Price from './components/pricing/price';
 import {v4 as uuidV4} from 'uuid'
 import Login from './components/authentication/Login';
-
+import LandingPage from './components/landing/LandingPage';
 
 export default function App() {
   return (
     <div>
        <Router>
         <Routes>
-        <Route path="/" element={<Navigate to={`documents/${uuidV4()}`}/>}></Route>
+          <Route path="/" element={<LandingPage/>}></Route>
+        <Route path="/text" element={<Navigate to={`text/documents/${uuidV4()}`}/>}></Route>
         
-        <Route path='documents/:id' element={ <TextEditor/>}/>
+        <Route path='text/documents/:id' element={ <TextEditor/>}/>
          
         
        
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/price" element={<Price />} />
         <Route path="/login" element={<Login />} />
+        
         
         </Routes>
        </Router>

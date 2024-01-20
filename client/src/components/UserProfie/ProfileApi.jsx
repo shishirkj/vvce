@@ -23,6 +23,6 @@ export function getProfile() {
     withCredentials: true,
   };
 
-  return axios.get('http://localhost:4000/api/v1/profile', config);
+  return axios.get('http://localhost:4000/api/v1/getProfile', config);
 }
   
