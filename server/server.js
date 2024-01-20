@@ -92,6 +92,8 @@ async function findOrCreateDocument(id) {
   return await Document.create({ _id: id, data: defaultValue })
 }
 
+
+//routes
 app.use('/api/v1',userRoute);
 app.use('/api/v1',profileRoute);
 app.use('/api/v1',searchRoute);

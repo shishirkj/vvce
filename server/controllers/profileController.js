@@ -8,7 +8,7 @@ import dataUri from "../utils/dataUri.js";
 export const updateProfile = async (req, res, next) => {
   try {
     const file = req.files;
-
+console.log("file is present",file)
     const fileUri = dataUri(file);
     const myCloud = await cloudinary.v2.uploader.upload(fileUri.content, {
       folder: "vvce",
@@ -52,7 +52,11 @@ export const updateProfile = async (req, res, next) => {
     if (!profile) {
       return next(new ErrorHandler("profile not created", 500));
     }
-    sendProfileCookie(profile,res,200,"profile sent")
+    
+    res.status(200).json({ 
+      mssg:"profile sent",
+      profile
+    })
 
   } catch (error) {
     console.error("Error during user creation:", error);

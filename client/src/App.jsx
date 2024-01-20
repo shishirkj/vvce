@@ -6,6 +6,9 @@ import Dashboard from './components/dashboard/Dashboard';
 import Profile from './components/UserProfie/Profile';
 import Price from './components/pricing/price';
 import {v4 as uuidV4} from 'uuid'
+import Login from './components/authentication/Login';
+
+
 export default function App() {
   return (
     <div>
@@ -21,6 +24,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/price" element={<Price />} />
+        <Route path="/login" element={<Login />} />
         
         </Routes>
        </Router>

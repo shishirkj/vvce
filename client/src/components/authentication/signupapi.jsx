@@ -15,3 +15,17 @@ export function registerUserApi(form) {
   }
     
   
+
+//login user
+export function loginUserApi(form) {
+
+  const config = {
+    headers: {
+      "Content-type": "application/json",
+    },
+    withCredentials: true,
+  };
+
+  return axios.post('http://localhost:4000/api/v1/login', form, config);
+}
+  
