@@ -32,8 +32,8 @@ console.log(data)
 <p className="mb-3">{info.timestamp}</p>
 <p className="mb-3">{info.document_id}</p>
 
-<p> {info.data?.ops && info.data.ops.length > 0 ? (
-                <p>{info.data.ops[0].insert}</p>
+<p> {info.data?.data?.ops && info.data.data.ops.length > 0 ? (
+                <p>{info.data.data.ops[0].insert}</p>
               ) : (
                 <p>No data available</p>
               )}</p>
