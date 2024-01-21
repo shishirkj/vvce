@@ -5,6 +5,7 @@ const LogbookSchema= mongoose.Schema({
     // _id:String,
     data:Object,
     document_id:String,
+    commitMessage:String,
     timestamp: {
         type: Date,
         default: Date.now
