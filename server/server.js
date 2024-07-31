@@ -74,8 +74,6 @@ io.on("connection", (socket) => {
   });
 });
 
-
-
 async function findOrCreateDocument(id) {
   if (id == null) return;
 
@@ -85,10 +83,6 @@ async function findOrCreateDocument(id) {
 
   return await Document.create({ _id: id, data: defaultValue });
 }
-
-
-
-
 
 //routes
 app.use("/api/v1", userRoute);

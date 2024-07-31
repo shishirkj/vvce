@@ -12,15 +12,30 @@ import QuillEditor from './components/segmentation/QuillEditor';
 import SearchOp from './components/searchquery/SearchOp';
 import Logbook from './components/logbook/Logbook';
 import Project from './components/createProject/Project';
+import { useEffect,useState } from 'react';
 
 
 export default function App() {
+
+const [roomId,setRoomId] = useState('')
+
+
+  useEffect(()=>{
+
+    function getData(){
+setRoomId(uuidV4())
+    }
+getData()
+  },[])
+  
+
+
   return (
     <div>
        <Router>
         <Routes>
           <Route path="/" element={<LandingPage/>}></Route>
-        <Route path="/text" element={<Navigate to={`/text/documents/${uuidV4()}`}/>}></Route>
+        <Route path="/text" element={<Navigate to={`/text/documents/${roomId}`}/>}></Route>
         
         <Route path='/text/documents/:id' element={ <TextEditor/>}/>
          

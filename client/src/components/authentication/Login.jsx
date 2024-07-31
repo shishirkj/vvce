@@ -31,6 +31,7 @@ export default function Login() {
 
       const { data } = await loginUserApi(form);
       if (data?.user?.email) {
+        sessionStorage.setItem('email',data?.user?.email);
         history('/dashboard');
       }
     } catch (error) {
@@ -44,45 +45,45 @@ export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-slate-600 p-6">
-      <div className="max-w-screen-xl w-full flex flex-col md:flex-row bg-white rounded-xl p-10 shadow-lg">
+    <div className="flex items-center justify-center min-h-screen p-6 bg-slate-600">
+      <div className="flex flex-col w-full max-w-screen-xl p-10 bg-white shadow-lg md:flex-row rounded-xl">
         <div className="md:w-1/2 md:pr-12">
           <img alt="" src="/favicon.png" className="mb-4" />
           <h1 className="text-4xl text-slate-600">Research Sync</h1>
-          <div className="text-gray-600 text-xl leading-6 tracking-widest mt-5">
+          <div className="mt-5 text-xl leading-6 tracking-widest text-gray-600">
             ResearchCollab: Unifying Collaboration Efforts
           </div>
-          <div className="text-gray-600 text-lg leading-5 tracking-wider mt-3">
+          <div className="mt-3 text-lg leading-5 tracking-wider text-gray-600">
             Manage your research and collaborate through an all-in-one platform.
           </div>
         </div>
-        <div className="md:w-1/2 flex items-center justify-center">
+        <div className="flex items-center justify-center md:w-1/2">
           <div className="flex flex-col items-center w-full">
             <div className="flex mb-4">
-              <span className="border flex items-stretch justify-between gap-3 px-3 py-2 rounded-lg border-solid border-neutral-200 max-md:pr-5">
+              <span className="flex items-stretch justify-between gap-3 px-3 py-2 border border-solid rounded-lg border-neutral-200 max-md:pr-5">
                 <img
                   alt="img"
                   loading="lazy"
                   src="https://www.shutterstock.com/shutterstock/photos/2275269793/display_1500/stock-vector-google-popular-realistic-social-media-logotype-editorial-illustration-eps-2275269793.jpg"
-                  className="aspect-square object-contain object-center w-8 h-8 overflow-hidden shrink-0 max-w-full"
+                  className="object-contain object-center w-8 h-8 max-w-full overflow-hidden aspect-square shrink-0"
                 />
-                <div className="text-zinc-600 text-xs leading-6 my-auto">
+                <div className="my-auto text-xs leading-6 text-zinc-600">
                   Sign up with Google
                 </div>
               </span>
-              <span className="border flex items-stretch justify-between gap-3 px-3 py-2 ml-4 rounded-lg border-solid border-neutral-200 max-md:pr-5">
+              <span className="flex items-stretch justify-between gap-3 px-3 py-2 ml-4 border border-solid rounded-lg border-neutral-200 max-md:pr-5">
                 <img
                   alt="img"
                   loading="lazy"
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFlI_3rHTSCdcenWLKRHAl5e1G7DEI1TYSLpJthkxgaQ&s"
-                  className="aspect-square object-contain object-center w-8 h-8 overflow-hidden shrink-0 max-w-full"
+                  className="object-contain object-center w-8 h-8 max-w-full overflow-hidden aspect-square shrink-0"
                 />
                 <div className="text-zinc-600 text-xs leading-6 mt-1.5">
                   Sign up with Facebook
                 </div>
               </span>
             </div>
-            <div className="text-slate-600 text-lg leading-6 self-center whitespace-nowrap my-4">
+            <div className="self-center my-4 text-lg leading-6 text-slate-600 whitespace-nowrap">
               OR
             </div>
             <form onSubmit={loginUser} className="flex flex-col items-center w-full">
@@ -93,7 +94,7 @@ export default function Login() {
                 placeholder="Email Address"
                 onChange={handleInputs}
                 style={{ outline: 'none' }}
-                className="mb-4 p-3 border border-gray-300 rounded w-full"
+                className="w-full p-3 mb-4 border border-gray-300 rounded"
               />
               <input
                 type="password"
@@ -102,15 +103,15 @@ export default function Login() {
                 placeholder="Password"
                 onChange={handleInputs}
                 style={{ outline: 'none' }}
-                className="mb-4 p-3 border border-gray-300 rounded w-full"
+                className="w-full p-3 mb-4 border border-gray-300 rounded"
               />
-              <div className="text-slate-600 text-base leading-6 mb-4">
+              <div className="mb-4 text-base leading-6 text-slate-600">
                 No account?{' '}
                 <Link to={'/signup'} className="text-slate-600">
                   Sign up
                 </Link>
               </div>
-              <button className="text-white bg-slate-600 p-3 rounded w-full" type="submit">
+              <button className="w-full p-3 text-white rounded bg-slate-600" type="submit">
                 Log in
               </button>
             </form>

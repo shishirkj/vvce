@@ -11,7 +11,7 @@ console.log(documentId)
    
     useEffect(()=>{ 
         async function showLogDetails(){ 
-            const response = await getLogbookDetails(documentId)
+            const response = await getLogbookDetails("1:1")
             const info = await response.data.data
             console.log(info)
            setData(info)
@@ -25,9 +25,9 @@ console.log(data)
     <div>
  {data?data.map((info,index)=>( 
 <div key = {index}>
-<div style={{minWidth:'100%'}} className="bg-white p-4 rounded-md shadow-md mx-auto max-w-2xl">
+<div style={{minWidth:'100%'}} className="max-w-2xl p-4 mx-auto bg-white rounded-md shadow-md">
 {/* Card content goes here */}
-<h2 className="text-xl font-bold mb-2">INFO</h2>
+<h2 className="mb-2 text-xl font-bold">INFO</h2>
 
 <p className="mb-3">{info.timestamp}</p>
 <p className="mb-3">{info.document_id}</p>
